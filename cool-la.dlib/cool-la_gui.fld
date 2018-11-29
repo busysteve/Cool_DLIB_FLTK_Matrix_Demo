@@ -1,0 +1,45 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0304
+header_name {.h}
+code_name {.cxx}
+Function {make_window()} {open
+} {
+  Fl_Window {} {open
+    xywh {472 384 570 550} type Double hide
+  } {
+    Fl_Value_Slider HRot {
+      callback {CoolBox->SetHRot(HRot->value());}
+      tooltip {Horizontal Rotation} xywh {60 500 455 35} type Horizontal maximum 360
+    }
+    Fl_Value_Slider VRot {
+      callback {CoolBox->SetVRot(VRot->value());}
+      tooltip {Vertical Rotation} xywh {520 60 35 430} maximum 360
+    }
+    Fl_Value_Slider ZRot {
+      callback {CoolBox->SetZRot(ZRot->value());}
+      xywh {60 15 455 35} type Horizontal maximum 360
+    }
+    Fl_Value_Slider Dots {
+      callback {CoolBox->SetDots(Dots->value());} selected
+      tooltip {Number of sphere dots} xywh {20 60 35 430} maximum 2000 step 1 value 100
+    }
+    Fl_Box CoolBox {
+      callback {HRot->value(
+  HRot->clamp(o->GetHRot())  );
+VRot->value(
+  VRot->clamp(o->GetVRot())  );
+ZRot->value(
+  ZRot->clamp(o->GetZRot())  );}
+      xywh {60 60 455 435} box DOWN_BOX color 0 labeltype NO_LABEL align 64 when 1
+      code0 {\#include "cool-la.h"}
+      class Cool
+    }
+  }
+}
+
+Function {} {open return_type int
+} {
+  code {make_window()->show();
+		
+	return Fl::run();} {}
+}
